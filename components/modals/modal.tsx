@@ -34,7 +34,7 @@ const Modal = ({
   const divRef = useRef(null);
 
   useOutsideClick(divRef, () => {
-    onClose();
+    handleClose();
   });
 
   useEffect(() => {
