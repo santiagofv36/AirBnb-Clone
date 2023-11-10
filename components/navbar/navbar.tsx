@@ -1,10 +1,11 @@
 "use client";
+import { SafeUser } from "@/lib/types";
 
 import Container from "@/components/container";
 import Logo from "@/components/navbar/logo";
 import Search from "@/components/navbar/search";
 import UserMenu from "@/components/navbar/user-menu";
-import { SafeUser } from "@/lib/types";
+import Categories from "@/components/navbar/categories";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
@@ -22,6 +23,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
 };
