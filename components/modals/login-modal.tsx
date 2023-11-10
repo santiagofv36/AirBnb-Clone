@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -13,12 +13,17 @@ import Modal from "@/components/modals/modal";
 import Heading from "@/components/heading";
 import Input from "@/components/inputs/input";
 import Button from "@/components/button";
-import useLoginModal from "@/hooks/use-login-modal";
+import useLoginModal from "@/hooks/modals/use-login-modal";
+import useRegisterModal from "@/hooks/modals/use-register-modal";
 
 const LoginModal = () => {
-  const [isLoading, setIsloading] = useState(false);
   const router = useRouter();
+
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
+
+  const [isLoading, setIsloading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -47,6 +52,11 @@ const LoginModal = () => {
       }
     });
   };
+
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [registerModal, loginModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -88,12 +98,12 @@ const LoginModal = () => {
       />
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex items-center gap-2">
-          <div>Don't have an account?</div>
+          <div>First time using Airbnb?</div>
           <div
-            onClick={loginModal.onClose}
+            onClick={toggle}
             className="text-neutra-800 cursor-pointer hover:underline"
           >
-            Sign up
+            Create an account
           </div>
         </div>
       </div>
